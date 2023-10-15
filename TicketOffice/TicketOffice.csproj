@@ -1,0 +1,49 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Folder Include="Data" />
+      <Folder Include="Migrations" />
+      <Folder Include="Pages\Management\Routes" />
+      <Folder Include="wwwroot\db" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.3" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.3">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.3" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Design" Version="1.1.6" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.3">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.3" />
+      <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.2" />
+      <PackageReference Include="PdfPig" Version="0.1.6" />
+      <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Pages\Auth\Registration\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\Auth\Login\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\Management\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\Management\Routes\Create.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\Management\Routes\Delete.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\Management\Routes\Edit.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\Management\Routes\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\Management\Tickets\Create.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\Management\Tickets\Delete.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\Management\Tickets\Edit.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\Management\Tickets\Index.cshtml" />
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,209 @@
+@page
+@model TicketOffice.Pages.Management.Routes.IndexModel
+@{
+    ViewData["Title"] = "Route management";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/Management/Index.css" />
+<link rel="stylesheet" href="~/css/CityListPopup.css" />
+<link rel="stylesheet" href="~/css/InfoPopup.css">
+
+<div class="wrapper">
+
+    <form class="search-block">
+        <div class="opt">
+            <div class="number">
+                <div class="title">
+                    Route No.
+                </div>
+                <input class="search-input" type="number" min="1" max="9999" autocomplete="off" asp-for="Number">
+            </div>
+
+            <div class="station">
+                <div class="title">
+                    Departure place
+                </div>
+                <input class="search-input" type="text" autocomplete="off" asp-for="From">
+            </div>
+
+            <div class="station">
+                <div class="title">
+                    Arrival place
+                </div>
+                <input class="search-input" type="text" autocomplete="off" asp-for="To">
+            </div>
+
+            <div class="date">
+                <div class="title">
+                    Departure date
+                </div>
+                <input class="search-input" type="date" autocomplete="off" asp-for="Date">
+            </div>
+
+            <div class="search-btn">
+                <input type="submit" class="search-btn" value="Search" />
+            </div>
+        </div>
+    </form>
+
+    <p>
+        <a class="link-btn" asp-page="Create">Create a new one</a>
+    </p>
+
+    @if (Model.Routes != null && Model.Routes.Count > 0)
+    {
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        Route No.
+                    </th>
+                    <th>
+                        Tickets remains
+                    </th>
+                    <th>
+                        Tickets sold
+                    </th>
+                    <th>
+                        Departure date
+                    </th>
+                    <th>
+                        Actions
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var route in Model.Routes)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => route.Number)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => route.Capacity)
+                        </td>
+                        <td>
+                            @route.Tickets.Count
+                        </td>
+                        <td>
+                            @route.Cities.First().DepartureTime.Value.ToString("dd.MM.yyyy")
+                        </td>
+                        <td>
+                            <a class="link-btn" onclick="document.getElementById('popup-city-list-@route.Id').style.display = 'inherit'">Route</a>
+                            <a class="link-btn" asp-page="./Edit" asp-route-id="@route.Id">Edit</a>
+                            <a class="link-btn" onclick="document.getElementById ('popup-info-@route.Id').style.display = 'inherit'">Remove</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="search-error">
+            <p>No routes found. Check your search criteria or add a new route</p>
+        </div>
+    }
+
+    @if (Model.Routes != null)
+    {
+        foreach (var route in Model.Routes)
+        {
+            <div class="popup-container-city-list" id="popup-city-list-@route.Id">
+                <div class="popup-city-list">
+                    <div class="popup-header-city-list">
+                        Route No.@route.Number
+                    </div>
+                    <div class="popup-body-city-list">
+                        <table class="city-list">
+                            <thead>
+                                <tr class="tr-intermediate city-list">
+                                    <th class="th-route city-list">
+                                        Information
+                                    </th>
+                                    <th class="th-route city-list">
+                                        City
+                                    </th>
+                                    <th class="th-route city-list">
+                                        Arrival time
+                                    </th>
+                                    <th class="th-route city-list">
+                                        Departure time
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="tr-departure city-list">
+                                    <td class="td-route city-list">
+                                        Departure
+                                    </td>
+                                    <td class="td-route city-list">
+                                        @route.Cities.First().Name
+                                    </td>
+                                    <td class="td-route city-list">
+                                        -
+                                    </td>
+                                    <td class="td-route city-list">
+                                        @route.Cities.First().DepartureTime?.ToString("HH:mm")
+                                    </td>
+                                </tr>
+
+                                @for (int i = 1; i < route.Cities.Count - 1; i++)
+                                {
+                                    <tr class="tr-intermediate city-list">
+                                        <td class="td-route city-list">
+                                            Проміжна станція
+                                        </td>
+                                        <td class="td-route city-list">
+                                            @route.Cities.ToList()[i].Name
+                                        </td>
+                                        <td class="td-route city-list">
+                                            @route.Cities.ToList()[i].ArrivalTime?.ToString("HH:mm")
+                                        </td>
+                                        <td class="td-route city-list">
+                                            @route.Cities.ToList()[i].DepartureTime?.ToString("HH:mm")
+                                        </td>
+                                    </tr>
+                                }
+
+                                <tr class="tr-arrival city-list">
+                                    <td class="td-route city-list">
+                                        Arrival
+                                    </td>
+                                    <td class="td-route city-list">
+                                        @route.Cities.Last().Name
+                                    </td>
+                                    <td class="td-route city-list">
+                                        @route.Cities.Last().ArrivalTime?.ToString("HH:mm")
+                                    </td>
+                                    <td class="td-route city-list">
+                                        -
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="popup-footer-city-list">
+                        <a class="popup-footer-link-button-city-list" onclick="document.getElementById('popup-city-list-@route.Id').style.display = 'none'">Close</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="popup-container-info" id="popup-info-@route.Id">
+                <div class="popup-info">
+                    <div class="popup-info-header">Route No. @route.Number</div>
+                    <div class="popup-info-body">
+                        Do you really want to remove the route?
+                    </div>
+                    <div class="popup-info-footer">
+                        <a class="popup-info-footer-link-button"
+                           onclick="document.getElementById('popup-info-@route.Id').style.display = 'none'">Cancel</a>
+                        <a class="popup-info-footer-link-button" asp-page-handler="DeleteRoute" asp-route-DeleteRouteId="@route.Id">Remove</a>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+
+</div>

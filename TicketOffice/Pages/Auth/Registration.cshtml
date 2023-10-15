@@ -1,0 +1,36 @@
+@page
+@model TicketOffice.Pages.Auth.RegistrationModel
+
+@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Sign in";
+}
+
+<link rel="stylesheet" href="~/css/Auth.css" asp-append-version="true" />
+
+<div class="wrapper">
+    <form class="auth-form" method="post">
+        <div class="header">
+            Sign in
+        </div>
+
+        <input class="field" type="text" placeholder="E-mail" autocomplete="off" asp-for="User.Email" />
+        <div class="validation-error">
+            <span>@Model.EmailValidationError</span>
+        </div>
+        <br>
+
+        <input class="field" type="password" placeholder="Password" autocomplete="off" asp-for="User.Password" />
+        <div class="validation-error">
+            <span>@Model.PasswordValidationError</span>
+        </div>
+        <br>
+
+        <input class="submit-btn" type="submit" value="Sign in" />
+
+        <div class="hint">
+            Already have an account?
+            <a href="/Auth/Login" class="link">Log in</a>
+        </div>
+    </form>
+</div>

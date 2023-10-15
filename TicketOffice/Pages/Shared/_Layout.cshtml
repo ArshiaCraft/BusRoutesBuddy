@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>@ViewData["Title"] - BusRoutesBuddy</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/css/Layout.css" asp-append-version="true" />
+</head>
+<body>
+
+    <div class="topnav">
+        @{
+            string path = Model.Request.Path.ToString().ToLower();
+        }
+
+        <a class="@(path == "/" ? "active" : "")" href="/">Main</a>
+        <a class="@(path == "/routes" ? "active" : "")" href="/Routes">Route Search</a>
+
+        <div class="topnav-right">
+            @if (Context.Session.GetInt32("IsManager") != null && Context.Session.GetInt32("IsManager") == 1)
+            {
+                <a class="@(path.Contains("management/routes") ? "active" : "")" href="/Management/Routes">Route management</a>
+            }
+
+            @if (Context.Session.GetString("UserId") != null)
+            {
+                <a class="@(path.Contains("account") ? "active" : "")" href="/Auth/Account">My tickets</a>
+            }
+            else
+            {
+                <a class="@(path.Contains("auth") ? "active" : "")" href="/Auth/Login">Login</a>
+            }
+        </div>
+    </div>
+
+    @RenderBody()
+
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

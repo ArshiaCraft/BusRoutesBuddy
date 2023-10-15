@@ -1,0 +1,40 @@
+html {
+    font-size: 16px;
+    min-height: 100%;
+    font-family: 'Roboto', sans-serif;
+    background-color: #eaeef1;
+}
+
+body {
+    margin: 0;
+}
+
+/*-----Navbar-----*/
+
+.topnav {
+    width: 100%;
+    background-color: white;
+    border-bottom: .2rem solid #9ccdf0;
+    overflow: auto;
+}
+
+    .topnav a {
+        float: left;
+        padding: 12px;
+        text-decoration: none;
+        color: #1d4965;
+        font-size: 1.25rem;
+        font-weight: 700;
+    }
+
+        .topnav a:hover {
+            background-color: rgba(121, 182, 219, 0.5);
+        }
+
+        .topnav a.active {
+            background-color: #9ccdf0;
+        }
+
+.topnav-right {
+    float: right;
+}

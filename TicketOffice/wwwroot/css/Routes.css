@@ -1,0 +1,201 @@
+html {
+    font-size: 16px;
+    min-height: 100%;
+    font-family: 'Roboto', sans-serif;
+    background-color: #eaeef1;
+}
+
+body {
+    margin: 0;
+}
+
+.wrapper {
+    width: 78rem;
+    margin: 2.5rem auto;
+}
+
+/* ~~~~~~ search block ~~~~~~ */
+
+.search-block {
+    background: #eaeef1;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 2.4rem 0 #c3c9d0;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+}
+
+.station, .date, div.search-btn {
+    display: inline-block;
+    margin: 0 2.2rem;
+}
+
+.title {
+    font-weight: 500;
+    color: #777a7e;
+    margin-bottom: .3rem;
+}
+
+input.search-input {
+    font-size: 1.5rem;
+    color: #262626;
+    font-weight: 500;
+    line-height: 4.7rem;
+    width: 15rem;
+    height: 3rem;
+    box-sizing: border-box;
+    background: #dfe3e5;
+    border: 1px solid #b8bfc7;
+    box-shadow: 0 1px 0 0 #fff;
+    border-radius: .3rem;
+    padding: 0 1.1rem;
+    text-align: left;
+}
+
+    input.search-input:focus {
+        outline: 0;
+        border-color: #68b2dd;
+        background-color: #fff;
+    }
+
+input.search-btn {
+    color: #1d4965;
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 3rem;
+    padding: 0 3rem;
+    display: inline-block;
+    background: linear-gradient(0deg,#79b6db,#b3dbf2);
+    border: none;
+    border-radius: .3rem;
+    cursor: pointer;
+}
+
+    input.search-btn:hover {
+        opacity: 0.8;
+    }
+
+/* ~~~~~~ route list table ~~~~~~ */
+
+.route-list {
+    margin-top: 3rem;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #d7dce1;
+}
+
+th {
+    height: 6rem;
+    line-height: 1.6rem;
+    background: #e6e9ed;
+    border: 1px solid #d7dce1;
+    padding: 0 1rem;
+    font-size: 1rem;
+    text-align: start;
+    font-weight: 700;
+    color: #777a7e;
+}
+
+.link-btn-sort {
+    color: #777a7e;
+    text-decoration: none;
+}
+
+    .link-btn-sort:hover {
+        color: #1d4965;
+        cursor: pointer;
+    }
+
+    .link-btn-sort:visited, .link-btn-sort:active {
+        text-decoration: none;
+    }
+
+tr {
+    line-height: 5rem;
+    background-color: white;
+}
+
+    tr:hover {
+        background-color: #dee9f4;
+    }
+
+td {
+    padding: 0 1rem;
+    border: 1px solid #d7dce1;
+    text-align: center;
+}
+
+    td.num, td.capacity {
+        font-size: 1.5rem;
+        font-weight: 700;
+        line-height: 2rem;
+    }
+
+.city-list-btn {
+    font-size: 0.8rem;
+    font-weight: 700;
+    line-height: 0.5rem;
+    color: #245c78;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+    .city-list-btn:visited {
+        text-decoration: none;
+    }
+
+    .city-list-btn:hover {
+        text-decoration: underline;
+    }
+
+td.city {
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.5rem;
+}
+
+td.time, td.duration {
+    font-size: 1.2rem;
+    font-weight: 900;
+    line-height: 1.4rem;
+}
+
+.route-date {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #c5c7cc;
+    font-size: 0.7rem;
+    font-weight: 700;
+    line-height: 1.25rem;
+}
+
+.link-btn-choose {
+    line-height: 2.5rem;
+    padding: 0 1rem;
+    display: inline-block;
+    color: #1d4965;
+    font-weight: 500;
+    background: linear-gradient(0deg,#79b6db,#b3dbf2);
+    border: none;
+    border-radius: .3rem;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+    .link-btn-choose:hover {
+        opacity: 0.8;
+    }
+
+.search-error {
+    background: #f1f2f4;
+    border: 1px solid #d7dce1;
+    box-shadow: 0 0 4px 0 rgba(195,201,208,.5);
+    font-weight: 500;
+    font-size: 1.5rem;
+    padding: 4rem 4rem;
+    text-align: center;
+    margin-top: 2rem;
+    line-height: 3rem;
+}

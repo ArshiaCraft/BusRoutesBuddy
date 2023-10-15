@@ -1,0 +1,64 @@
+html {
+    font-size: 16px;
+    min-height: 100%;
+    font-family: 'Roboto', sans-serif;
+    background-color: #eaeef1;
+}
+
+body {
+    margin: 0;
+    background-color: black;
+}
+
+div.background {
+    background-image: url("/img/Bus-Wallpaper-33-1860x1050-1.jpg");
+    height: calc(100vh - 3.15rem);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    z-index: -2;
+}
+
+div.background-shadow {
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+}
+
+div.title-block {
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+div.title-header {
+    color: white;
+    font-size: 1.8rem;
+    font-weight: 700;
+    height: fit-content;
+    margin-bottom: 1rem;
+}
+
+div.title-footer {
+}
+
+.link-btn {
+    line-height: 2.5rem;
+    padding: 0 1rem;
+    display: inline-block;
+    color: #1d4965;
+    font-weight: 500;
+    background: linear-gradient(0deg,#79b6db,#b3dbf2);
+    border: none;
+    border-radius: .3rem;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+    .link-btn:hover {
+        opacity: 0.9;
+    }

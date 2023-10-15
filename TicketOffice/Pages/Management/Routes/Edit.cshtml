@@ -1,0 +1,65 @@
+@page
+@model TicketOffice.Pages.Management.Routes.EditModel
+
+@{
+    ViewData["Title"] = $"Edit route";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/Management/Create.css" />
+
+<div class="wrapper">
+
+    <form method="post">
+        <div class="header">
+            Editing route
+        </div>
+
+        <div class="field">
+            <input class="field" type="number" placeholder="Route number" min="1" max="9999" autocomplete="off" asp-for="Route.Number" />
+            <div class="validation-error"><span>@Model.NumberValidationError</span></div>
+        </div>
+
+        <div class="field">
+            <input class="field" type="number" placeholder="Capacity" min="5" max="40" autocomplete="off" asp-for="Route.Capacity" />
+            <div class="validation-error"><span>@Model.CapacityValidationError</span></div>
+        </div>
+
+        <h2>Route</h2>
+
+        @for (int i = 0; i < @Model.Route.Cities.Count; i++)
+        {
+            <div class="new-city">
+                <div class="city-name">
+                    <input class="field-city" type="text" placeholder="Name" autocomplete="off" asp-for="Route.Cities[i].Name">
+                    <div class="validation-error"><span>@Model.NameValidationError[i]</span></div>
+                </div>
+
+                <div class="city-date">
+                    <input class="field-city" type="text" placeholder="Arrival date" autocomplete="off" asp-for="TimeStrings[i].ArrivalDate">
+                    <div class="validation-error"><span></span>@Model.ArrivalTimeValidationError[i]</div>
+                </div>
+
+                <div class="city-date">
+                    <input class="field-city" type="text" placeholder="Departure date" autocomplete="off" asp-for="TimeStrings[i].DepartureDate">
+                    <div class="validation-error"><span>@Model.DepartureTimeValidationError[i]</span></div>
+                </div>
+
+                <div class="city-cost">
+                    <input class="field-city" type="number" placeholder="Price" autocomplete="off" min="0" asp-for="Route.Cities[i].CostFromPreviousCity">
+                    @* <div class="validation-error"><span>@Model.DepartureTimeValidationError[i]</span></div> *@
+                </div>
+
+                <input type="number" hidden value="@Model.Route.Cities[i].Id" asp-for="CityIds[i]">
+            </div>
+        }
+
+        <input class="submit-btn" type="submit" value="Save" />
+
+        <div class="hint">
+            <a href="./Index" class="link">Back to list</a>
+        </div>
+    </form>
+
+</div>
+

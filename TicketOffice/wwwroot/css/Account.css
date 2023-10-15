@@ -1,0 +1,155 @@
+html {
+    font-size: 16px;
+    min-height: 100%;
+    font-family: 'Roboto', sans-serif;
+    background-color: #eaeef1;
+}
+
+body {
+    margin: 0;
+}
+
+/* Sections */
+
+.section {
+    width: 70rem;
+    margin: 1.5rem auto;
+}
+
+.section-header {
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.section-text {
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 2rem 0;
+}
+
+/* Tickets in section */
+
+.tickets {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.ticket {
+    background: #eaeef1;
+    box-shadow: 0 5px 10px 1px #aeb1b5;
+    width: 30rem;
+    height: 12rem;
+    border-radius: 0.5rem;
+    margin: 2rem 0 0 0;
+}
+
+.ticket-header {
+    background: #a1b0b9;
+    border-radius: 0.5rem 0.5rem 0 0;
+    height: 2.5rem;
+    line-height: 2.5rem;
+    font-size: 1rem;
+    font-weight: 700;
+    color: white;
+    text-align: center;
+}
+
+.ticket-body {
+    height: calc(100% - 5.7rem);
+}
+
+.ticket-info {
+    margin: 0.25rem 0.5rem;
+    font-weight: 700;
+    font-size: 0.8rem;
+}
+
+.ticket-info-line {
+    display: flex;
+    justify-content: space-between;
+    height: 1.4rem;
+    line-height: 1rem;
+    align-items: end;
+    border-bottom: 1px solid #c5c7cc;
+}
+
+.date {
+    font-size: 0.8rem;
+}
+
+.ticket-footer {
+    height: 3rem;
+    text-align: center;
+}
+
+.ticket-link-btn {
+    line-height: 2rem;
+    padding: 0 0.8rem;
+    margin: 0.5rem 0.5rem;
+    display: inline-block;
+    color: #1d4965;
+    font-size: 0.8rem;
+    font-weight: 500;
+    background: linear-gradient(0deg,#79b6db,#b3dbf2);
+    border: none;
+    border-radius: .3rem;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+    .ticket-link-btn:hover {
+        opacity: 0.8;
+    }
+
+/* Misc */
+
+.link-btn {
+    line-height: 2.5rem;
+    padding: 0 1rem;
+    display: inline-block;
+    color: #1d4965;
+    font-weight: 500;
+    background: linear-gradient(0deg,#79b6db,#b3dbf2);
+    border: none;
+    border-radius: .3rem;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+    .link-btn:hover {
+        opacity: 0.8;
+    }
+
+input.btn {
+    line-height: 2.5rem;
+    padding: 0 1rem;
+    margin: 0 0.5rem;
+    display: inline-block;
+    color: #1d4965;
+    font-weight: 700;
+    font-size: 1rem;
+    background: linear-gradient(0deg,#79b6db,#b3dbf2);
+    border: none;
+    border-radius: .3rem;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.link {
+    color: #245c78;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+    .link:hover {
+        text-decoration: underline;
+    }
+
+.divider {
+    background-color: #9ccdf0;
+    height: 0.2rem;
+    width: 100%;
+}

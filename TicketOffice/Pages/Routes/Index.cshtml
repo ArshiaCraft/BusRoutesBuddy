@@ -1,0 +1,393 @@
+﻿@page
+@using System.Globalization
+@model TicketOffice.Pages.Routes.IndexModel
+@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Route search";
+    CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("en");
+}
+
+
+
+<link rel="stylesheet" href="~/css/Routes.css" />
+<link rel="stylesheet" href="~/css/CityListPopup.css" />
+<link rel="stylesheet" href="~/css/TicketOrderPopup.css" />
+
+<div class="wrapper">
+
+    <form class="search-block">
+        <div class="opt">
+            <div class="station">
+                <div class="title">
+                    Departure place
+                </div>
+                <input class="search-input" type="text" autocomplete="off" asp-for="From">
+            </div>
+            <a class="change-dir"></a>
+            <div class="station">
+                <div class="title">
+                    Arrival place
+                </div>
+                <input class="search-input" type="text" autocomplete="off" asp-for="To">
+            </div>
+            <div class="date">
+                <div class="title">
+                    Departure date
+                </div>
+                <input class="search-input" type="date" value="@Model.Date!.Value.ToString("yyyy-MM-dd")" asp-for="Date">
+            </div>
+            <div class="search-btn">
+                <input type="submit" class="search-btn" value="Search" />
+            </div>
+        </div>
+    </form>
+
+    @if (Model.Routes != null && Model.Routes.Count > 0)
+    {
+        <div class="route-list">
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            Route No.
+                            @if (Model.SortString == "increasingNumber")
+                            {
+                                <a class="link-btn-sort" asp-page-handler="SortByNumber" asp-route-SortString="descendingNumber" asp-route-From=@Model.From a in a asp-route-To=@Model.To asp-route-Date=@Model.Date!.Value.ToString("yyyy-MM-dd")>🠕</a>
+                            }
+                            else if (Model.SortString == "descendingNumber")
+                            {
+                                <a class="link-btn-sort" asp-page-handler="SortByNumber" asp-route-SortString="increasingNumber" asp-route-From=@Model.From a in a asp-route-To=@Model.To asp-route-Date=@Model.Date!.Value.ToString("yyyy-MM-dd")>🠗</a>
+                            }
+                            else
+                            {
+                                <a class="link-btn-sort" asp-page-handler="SortByNumber" asp-route-SortString="increasingNumber" asp-route-From=@Model.From a in a asp-route-To=@Model.To asp-route-Date=@Model.Date!.Value.ToString("yyyy-MM-dd")>⮁</a>
+                            }
+                        </th>
+                        <th>
+                            Departure place / Arrival place
+                        </th>
+                        <th>
+                            Date
+                        </th>
+                        <th>
+                            <div class="departure">
+                                Departure
+                                @if (Model.SortString == "increasingDeparture")
+                                {
+                                    <a class="link-btn-sort" asp-page-handler="SortByDeparture" asp-route-SortString="descendingDeparture" asp-route-From=@Model.From a in a asp-route-To=@Model.To asp-route-Date=@Model.Date!.Value.ToString("yyyy-MM-dd")>🠕</a>
+                                }
+                                else if (Model.SortString == "descendingDeparture")
+                                {
+                                    <a class="link-btn-sort" asp-page-handler="SortByDeparture" asp-route-SortString="increasingDeparture" asp-route-From=@Model.From a in a asp-route-To=@Model.To asp-route-Date=@Model.Date!.Value.ToString("yyyy-MM-dd")>🠗</a>
+                                }
+                                else
+                                {
+                                    <a class="link-btn-sort" asp-page-handler="SortByDeparture" asp-route-SortString="increasingDeparture" asp-route-From=@Model.From a in a asp-route-To=@Model.To asp-route-Date=@Model.Date!.Value.ToString("yyyy-MM-dd")>⮁</a>
+                                }
+                            </div>
+                            <div class="arrival">
+                                Arrival
+                                @if (Model.SortString == "increasingArrival")
+                                {
+                                    <a class="link-btn-sort" asp-page-handler="SortByArrival" asp-route-SortString="descendingArrival" asp-route-From=@Model.From a in a asp-route-To=@Model.To asp-route-Date=@Model.Date!.Value.ToString("yyyy-MM-dd")>🠕</a>
+                                }
+                                else if (Model.SortString == "descendingArrival")
+                                {
+                                    <a class="link-btn-sort" asp-page-handler="SortByArrival" asp-route-SortString="increasingArrival" asp-route-From=@Model.From a in a asp-route-To=@Model.To asp-route-Date=@Model.Date!.Value.ToString("yyyy-MM-dd")>🠗</a>
+                                }
+                                else
+                                {
+                                    <a class="link-btn-sort" asp-page-handler="SortByArrival" asp-route-SortString="increasingArrival" asp-route-From=@Model.From a in a asp-route-To=@Model.To asp-route-Date=@Model.Date!.Value.ToString("yyyy-MM-dd")>⮁</a>
+                                }
+                            </div>
+                        </th>
+                        <th>
+                            Duration
+                            @if (Model.SortString == "increasingDuration")
+                            {
+                                <a class="link-btn-sort" asp-page-handler="SortByDuration" asp-route-SortString="descendingDuration" asp-route-From=@Model.From a in a asp-route-To=@Model.To asp-route-Date=@Model.Date!.Value.ToString("yyyy-MM-dd")>🠕</a>
+                            }
+                            else if (Model.SortString == "descendingDuration")
+                            {
+                                <a class="link-btn-sort" asp-page-handler="SortByDuration" asp-route-SortString="increasingDuration" asp-route-From=@Model.From a in a asp-route-To=@Model.To asp-route-Date=@Model.Date!.Value.ToString("yyyy-MM-dd")>🠗</a>
+                            }
+                            else
+                            {
+                                <a class="link-btn-sort" asp-page-handler="SortByDuration" asp-route-SortString="increasingDuration" asp-route-From=@Model.From a in a asp-route-To=@Model.To asp-route-Date=@Model.Date!.Value.ToString("yyyy-MM-dd")>⮁</a>
+                            }
+                        </th>
+                        <th>
+                            Available seats
+                        </th>
+                        <th>
+                            Price
+                        </th>
+                        <th>
+                            Actions
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var route in Model.Routes)
+                    {
+                        <tr class="table-row">
+                            <td class="num">
+                                <div>@route.Number</div>
+                                <div class="city-list-btn"><a class="city-list-btn" onclick="document.getElementById('popup-city-list-@route.Id').style.display = 'inherit'">Route</a></div>
+                            </td>
+                            <td class="city">
+                                <div>@route.Cities.First().Name</div>
+                                <div>@route.Cities.Last().Name</div>
+                            </td>
+                            <td>
+                                <div class="route-date">
+                                    <span>
+                                        Departure
+                                    </span>
+                                    <span>
+                                        @route.Cities.First().DepartureTime?.ToString("f").Split(",")[0].ToLower(),
+                                        @route.Cities.First().DepartureTime?.ToString("dd.MM.yyyy")
+                                    </span>
+                                </div>
+                                <div class="route-date">
+                                    <span>Arrival</span>
+                                    <span>
+                                        @route.Cities.Last().ArrivalTime?.ToString("f").Split(",")[0].ToLower(),
+                                        @route.Cities.Last().ArrivalTime?.ToString("dd.MM.yyyy")
+                                    </span>
+                                </div>
+                            </td>
+                            <td class="time">
+                                <div>@route.Cities.First().DepartureTime?.ToString("t")</div>
+                                <div>@route.Cities.Last().ArrivalTime?.ToString("t")</div>
+                            </td>
+                            <td class="duration">
+                                @{
+                                    TimeSpan? duration = route.Cities.Last().ArrivalTime - route.Cities.First().DepartureTime;
+                                }
+
+                                @($"{duration?.Hours.ToString(CultureInfo.CurrentCulture).Split(",")[0]}:{duration?.Minutes:00}")
+                            </td>
+                            <td class="capacity">
+                                @Model.GetRemainingCapacity(route)
+                            </td>
+                            <td class="capacity">
+                                @route.GetTotalCost()
+                            </td>
+                            <td class="action">
+                                <a class="link-btn-choose" onclick="document.getElementById('popup-ticket-@route.Id').style.display = 'inherit'">Select</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else if (Model.Routes == null)
+    {
+        <div class="search-error">
+            <p>Enter the cities of departure and arrival and also the departure date.</p>
+        </div>
+    }
+    else
+    {
+        <div class="search-error">
+            <p>There are no seats in the direction you specified</p>
+        </div>
+    }
+
+</div>
+
+@if (Model.Routes != null)
+{
+    foreach (var route in Model.Routes)
+    {
+        <div class="popup-container-city-list" id="popup-city-list-@route.Id">
+            <div class="popup-city-list">
+                <div class="popup-header-city-list">
+                    Route No. @route.Number
+                </div>
+                <div class="popup-body-city-list">
+                    <table class="city-list">
+                        <thead>
+                            <tr class="tr-intermediate city-list">
+                                <th class="th-route city-list">
+                                    Information
+                                </th>
+                                <th class="th-route city-list">
+                                    City
+                                </th>
+                                <th class="th-route city-list">
+                                    Arrival time
+                                </th>
+                                <th class="th-route city-list">
+                                    Departure time
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="tr-departure city-list">
+                                <td class="td-route city-list">
+                                    Departure
+                                </td>
+                                <td class="td-route city-list">
+                                    @route.Cities.First().Name
+                                </td>
+                                <td class="td-route city-list">
+                                    -
+                                </td>
+                                <td class="td-route city-list">
+                                    @route.Cities.First().DepartureTime?.ToString("HH:mm")
+                                </td>
+                            </tr>
+
+                            @for (int i = 1; i < route.Cities.Count - 1; i++)
+                            {
+                                <tr class="tr-intermediate city-list">
+                                    <td class="td-route city-list">
+                                        Проміжна станція
+                                    </td>
+                                    <td class="td-route city-list">
+                                        @route.Cities.ToList()[i].Name
+                                    </td>
+                                    <td class="td-route city-list">
+                                        @route.Cities.ToList()[i].ArrivalTime?.ToString("HH:mm")
+                                    </td>
+                                    <td class="td-route city-list">
+                                        @route.Cities.ToList()[i].DepartureTime?.ToString("HH:mm")
+                                    </td>
+                                </tr>
+                            }
+
+                            <tr class="tr-arrival city-list">
+                                <td class="td-route city-list">
+                                    Arrival
+                                </td>
+                                <td class="td-route city-list">
+                                    @route.Cities.Last().Name
+                                </td>
+                                <td class="td-route city-list">
+                                    @route.Cities.Last().ArrivalTime?.ToString("HH:mm")
+                                </td>
+                                <td class="td-route city-list">
+                                    -
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="popup-footer-city-list">
+                    <a class="popup-footer-link-button-city-list" onclick="document.getElementById('popup-city-list-@route.Id').style.display = 'none'">Close</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="popup-container-ticket-order" id="popup-ticket-@route.Id"
+             style='display:@(Model.Ticket != null && Model.Ticket.RouteId ==
+         route.Id ? "inherit" : "none")'>
+            <div class="ticket">
+                <div class="ticket-header">
+                    Buy a ticket
+                </div>
+                <div class="ticket-body">
+                    <div class="ticket-body-main">
+                        <form class="ticket-form" method="post" id="ticket-form-@route.Id" novalidate>
+                            <div class="ticket-input-item" style="margin-right: 0.5rem">
+                                @if (HttpContext.Session.GetInt32("UserId").HasValue)
+                                {
+                                    <input class="ticket-input-lastname" type="text" placeholder="Last name" asp-for="Ticket!.PassengerLastName" />
+                                }
+                                else
+                                {
+                                    <input class="ticket-input-lastname" type="text" placeholder="Last name" readonly />
+                                }
+                                <div class="ticket-validation-error"><span>@(Model.Ticket != null && Model.Ticket.RouteId == route.Id ? Model.PassengerLastNameValidationError : "")</span></div>
+                            </div>
+                            <div class="ticket-input-item" style="margin-left: 0.5rem; margin-right: 0.5rem">
+                                @if (HttpContext.Session.GetInt32("UserId").HasValue)
+                                {
+                                    <input class="ticket-input-firstname" type="text" placeholder="First name" asp-for="Ticket!.PassengerFirstName" />
+                                }
+                                else
+                                {
+                                    <input class="ticket-input-firstname" type="text" placeholder="First name" readonly />
+                                }
+                                <div class="ticket-validation-error"><span>@(Model.Ticket != null && Model.Ticket.RouteId == route.Id ? Model.PassengerFirstNameValidationError : "")</span></div>
+                            </div>
+                            <div class="ticket-input-item" style="margin-left: 0.5rem">
+                                <select class="ticket-place-select" required asp-for="Ticket!.PassengerPlace">
+                                    <option selected disabled value="">Seat</option>
+                                    @for (int i = 1; i <= route.Capacity; i++)
+                                    {
+                                        if (Model.IsTakenPlace(route, i))
+                                        {
+                                            <option value="@i" disabled>@i - This seat is busy</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@i">@i</option>
+                                        }
+                                    }
+                                </select>
+                                <div class="ticket-validation-error"><span>@(Model.Ticket != null && Model.Ticket.RouteId == route.Id ? Model.PassengerPlaceValidationError : "")</span></div>
+                            </div>
+                            <input type="number" value="@route.Id" style="display: none;" asp-for="Ticket!.RouteId" />
+                            <input type="number" value="@HttpContext.Session.GetInt32("UserId")" style="display: none;" asp-for="Ticket!.UserId" />
+                        </form>
+                        <div class="ticket-info">
+                            <div class="ticket-info-line">
+                                <div class="ticket-info-line-left">
+                                    Route number
+                                </div>
+                                <div class="ticket-info-line-right">
+                                    No. @route.Number
+                                </div>
+                            </div>
+                            <div class="ticket-info-line">
+                                <div class="ticket-info-line-left">
+                                    Departure date
+                                </div>
+                                <div class="ticket-info-line-right">
+                                    @route.Cities.First().DepartureTime?.ToString("f").Split(",")[0].ToLower(),
+                                    @route.Cities.First().DepartureTime?.ToString("dd.MM.yyyy"),
+                                    @route.Cities.First().DepartureTime?.ToString("HH:mm"),
+                                    @route.Cities.First().Name
+                                </div>
+                            </div>
+                            <div class="ticket-info-line">
+                                <div class="ticket-info-line-left">
+                                    Arrival date
+                                </div>
+                                <div class="ticket-info-line-right">
+                                    <div class="ticket-info-line-right-block">
+                                        @route.Cities.Last().ArrivalTime?.ToString("f").Split(",")[0].ToLower(),&nbsp;
+                                    </div>
+                                    <div class="ticket-info-line-right-block">
+                                        @route.Cities.Last().ArrivalTime?.ToString("dd.MM.yyyy"),&nbsp;
+                                    </div>
+                                    <div class="ticket-info-line-right-block">
+                                        @route.Cities.Last().ArrivalTime?.ToString("HH:mm"),&nbsp;
+                                    </div>
+                                    <div class="ticket-info-line-right-block">
+                                        @route.Cities.Last().Name
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ticket-body-footer">
+                        <a class="popup-footer-link-button-ticket-order" onclick="document.getElementById('popup-ticket-@route.Id').style.display = 'none'">Close</a>
+                        @if (HttpContext.Session.GetString("UserId") != null)
+                        {
+                            <input class="popup-footer-button-ticket-order" type="submit" form="ticket-form-@route.Id" value="Buy (@route.GetTotalCost())">
+                        }
+                        else
+                        {
+                            <a class="popup-footer-link-button-ticket-order" href="/Auth/Login">Log in</a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}

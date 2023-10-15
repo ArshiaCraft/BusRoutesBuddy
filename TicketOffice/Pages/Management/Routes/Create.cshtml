@@ -1,0 +1,120 @@
+@page
+@model TicketOffice.Pages.Management.Routes.CreateModel
+@{
+    ViewData["Title"] = "Create Route";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/Management/Create.css" />
+
+<div class="wrapper">
+
+    <form method="post">
+        <div class="header">
+            Create a route
+        </div>
+
+        <div class="field">
+            <input class="field" type="number" placeholder="Route number" min="1" max="9999" autocomplete="off" asp-for="Route.Number" />
+            <div class="validation-error"><span>@Model.NumberValidationError</span></div>
+        </div>
+
+        <div class="field">
+            <input class="field" type="number" placeholder="Capacity" min="5" max="40" autocomplete="off" asp-for="Route.Capacity" />
+            <div class="validation-error"><span>@Model.CapacityValidationError</span></div>
+        </div>
+
+        @if (Model.CitiesCount != null)
+        {
+            <h2>Route</h2>
+
+            @for (int i = 0; i < Model.CitiesCount; i++)
+            {
+                <div class="new-city">
+                    <div class="city-name">
+                        <input class="field-city" type="text" placeholder="Name" autocomplete="off" asp-for="Route.Cities[i].Name">
+                        <div class="validation-error"><span>@Model.NameValidationError[i]</span></div>
+                    </div>
+
+                    <div class="city-date">
+                        <input class="field-city" type="text" placeholder="Arrival date" autocomplete="off" asp-for="TimeStrings[i].ArrivalDate">
+                        <div class="validation-error"><span></span>@Model.ArrivalTimeValidationError[i]</div>
+                    </div>
+
+                    <div class="city-date">
+                        <input class="field-city" type="text" placeholder="Departure date" autocomplete="off" asp-for="TimeStrings[i].DepartureDate">
+                        <div class="validation-error"><span>@Model.DepartureTimeValidationError[i]</span></div>
+                    </div>
+
+                    <div class="city-cost">
+                        <input class="field-city" type="number" placeholder="Price" autocomplete="off" value="" min="0" asp-for="Route.Cities[i].CostFromPreviousCity">
+                        @* <div class="validation-error"><span>@Model.DepartureTimeValidationError[i]</span></div> *@
+                    </div>
+                </div>
+            }
+
+            <input class="submit-btn" type="submit" value="Create" />
+
+            <input class="field-city" type="number" value="" hidden asp-for="CitiesCount">
+        }
+        else
+        {
+            <h2>Route</h2>
+
+            <div class="field">
+                <input class="field-city" type="number" placeholder="How many cities will be on the route?" autocomplete="off" asp-for="CitiesCount">
+            </div>
+            <br>
+
+            <input class="submit-btn" type="submit" value="Add" />
+        }
+
+        <div class="hint">
+            <a href="./Index" class="link">Back to list</a>
+        </div>
+    </form>
+
+</div>
+
+<script>
+
+    let i = 1;
+
+    function AddCity() {
+        i++;
+
+        // Validatio in java inserted code must be added
+
+        document.getElementById('add-city-btn').insertAdjacentHTML('beforebegin',
+            `<div class="new-city" id="new-city-${i}">
+                         <div class="city-name">
+                             <input class="field-city" type="text" placeholder="Name" autocomplete="off" asp-for="Route.Cities[${i}].Name">
+                             <div class="validation-error"><span></span></div>
+                         </div>
+
+                         <div class="city-date">
+                             <input class="field-city" type="text" placeholder="Date and time of arrival" autocomplete="off" asp-for="TimeStrings[${i}].ArrivalDate">
+                             <div class="validation-error"><span></span></div>
+                         </div>
+
+                         <div class="city-date">
+                                 <input class="field-city" type="text" placeholder="Date and time of Departure" autocomplete="off" asp-for="TimeStrings[${i}].DepartureDate">
+                             <div class="validation-error"><span></span></div>
+                         </div>
+
+                         <a class="link-btn" id="close-city-${i}" onclick="RemoveCity(${i})">x</a>
+                     </div>`)
+
+        document.getElementById(`close-city-${i - 1}`).remove();
+    }
+
+    function RemoveCity(j) {
+        document.getElementById(`new-city-${j}`).remove();
+
+        i--;
+
+        document.getElementById(`new-city-${i}`).insertAdjacentHTML('beforeend',
+            `<a class="link-btn" id="close-city-${i}" onclick="RemoveCity(${i})">x</a>`);
+    }
+
+</script>

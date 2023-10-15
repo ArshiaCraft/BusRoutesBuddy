@@ -1,0 +1,165 @@
+@page
+@using System.Globalization
+@model TicketOffice.Pages.Auth.AccountModel
+@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Account";
+    CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("en");
+}
+
+<link rel="stylesheet" href="~/css/Account.css" />
+<link rel="stylesheet" href="~/css/CityListPopup.css" />
+<link rel="stylesheet" href="~/css/InfoPopup.css">
+
+<div class="section">
+    <div class="section-header">Purchased Tickets</div>
+    @if (Model.Tickets is { Count: 0 })
+    {
+        <div class="section-text">You have not purchased any tickets. <a href="/Routes" class="link">Route search</a></div>
+    }
+    else
+    {
+        <div class="tickets">
+            @foreach (var ticket in Model.Tickets)
+            {
+                <div class="ticket">
+                    <div class="ticket-header">Ticket No. @ticket.Id</div>
+                    <div class="ticket-body">
+                        <div class="ticket-info">
+                            <div class="ticket-info-line">
+                                <span>Passenger, seat:</span>
+                                <span>@ticket.PassengerLastName @ticket.PassengerFirstName, @ticket.PassengerPlace</span>
+                            </div>
+                            <div class="ticket-info-line">
+                                <span>Route number:</span>
+                                <span> No. @ticket.Route.Number</span>
+                            </div>
+                            <div class="ticket-info-line date">
+                                <span>Departure date:</span>
+                                <span>
+                                    @ticket.Cities.First().DepartureTime?.ToString("f").Split(",")[0].ToLower(),
+                                    @ticket.Cities.First().DepartureTime?.ToString("dd.MM.yyyy"),
+                                    @ticket.Cities.First().DepartureTime?.ToString("HH:mm")
+                                </span>
+                            </div>
+                            <div class="ticket-info-line date">
+                                <span>Arrival date:</span>
+                                <span>
+                                    @ticket.Cities.Last().ArrivalTime?.ToString("f").Split(",")[0].ToLower(),
+                                    @ticket.Cities.Last().ArrivalTime?.ToString("dd.MM.yyyy"),
+                                    @ticket.Cities.Last().ArrivalTime?.ToString("HH:mm")
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ticket-footer">
+                        <a class="ticket-link-btn" onclick="document.getElementById('popup-city-list-@ticket.Id').style.display = 'inherit'">Route</a>
+                        <a class="ticket-link-btn" asp-page-handler="TicketPdf" asp-route-pdfTicketId="@ticket.Id">Download the ticket</a>
+                        <a class="ticket-link-btn" onclick="document.getElementById('popup-info-@ticket.Id').style.display = 'inherit'">Refund</a>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+@if (Model.Tickets is not { Count: 0 })
+{
+    foreach (var ticket in Model.Tickets)
+    {
+        <div class="popup-container-city-list" id="popup-city-list-@ticket.Id">
+            <div class="popup-city-list">
+                <div class="popup-header-city-list">
+                    Bus No.@ticket.Route.Number
+                </div>
+                <div class="popup-body-city-list">
+                    <table class="city-list">
+                        <thead>
+                            <tr class="tr-intermediate city-list">
+                                <th class="th-route city-list">
+                                    Information
+                                </th>
+                                <th class="th-route city-list">
+                                    City
+                                </th>
+                                <th class="th-route city-list">
+                                    Arrival time
+                                </th>
+                                <th class="th-route city-list">
+                                    Departure time
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="tr-departure city-list">
+                                <td class="td-route city-list">
+                                    Departure
+                                </td>
+                                <td class="td-route city-list">
+                                    @ticket.Cities.First().Name
+                                </td>
+                                <td class="td-route city-list">
+                                    -
+                                </td>
+                                <td class="td-route city-list">
+                                    @ticket.Cities.First().DepartureTime?.ToString("HH:mm")
+                                </td>
+                            </tr>
+
+                            @for (int i = 1; i < ticket.Cities.Count - 1; i++)
+                            {
+                                <tr class="tr-intermediate city-list">
+                                    <td class="td-route city-list">
+                                        Проміжна станція
+                                    </td>
+                                    <td class="td-route city-list">
+                                        @ticket.Cities.ToList()[i].Name
+                                    </td>
+                                    <td class="td-route city-list">
+                                        @ticket.Cities.ToList()[i].ArrivalTime?.ToString("HH:mm")
+                                    </td>
+                                    <td class="td-route city-list">
+                                        @ticket.Cities.ToList()[i].DepartureTime?.ToString("HH:mm")
+                                    </td>
+                                </tr>
+                            }
+
+                            <tr class="tr-arrival city-list">
+                                <td class="td-route city-list">
+                                    Arrival
+                                </td>
+                                <td class="td-route city-list">
+                                    @ticket.Cities.Last().Name
+                                </td>
+                                <td class="td-route city-list">
+                                    @ticket.Cities.Last().ArrivalTime?.ToString("HH:mm")
+                                </td>
+                                <td class="td-route city-list">
+                                    -
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="popup-footer-city-list">
+                    <a class="popup-footer-link-button-city-list" onclick="document.getElementById('popup-city-list-@ticket.Id').style.display = 'none'">Close</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="popup-container-info" id="popup-info-@ticket.Id">
+            <div class="popup-info">
+                <div class="popup-info-header">Ticket No. @ticket.Id</div>
+                <div class="popup-info-body">
+                    Do you really want to Refund the ticket?
+                </div>
+                <div class="popup-info-footer">
+                    <a class="popup-info-footer-link-button" onclick="document.getElementById('popup-info-@ticket.Id').style.display = 'none'">Cancel</a>
+                    <a class="popup-info-footer-link-button" asp-page-handler="ReturnTicket" asp-route-returnTicketId="@ticket.Id">Refund</a>
+                </div>
+            </div>
+        </div>
+    }
+}
+
+

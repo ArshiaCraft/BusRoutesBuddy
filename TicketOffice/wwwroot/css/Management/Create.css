@@ -1,0 +1,138 @@
+html {
+    font-size: 16px;
+    min-height: 100%;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    background-color: #eaeef1;
+}
+
+body {
+    margin: 0;
+}
+
+.wrapper {
+    width: 55rem;
+    margin: 2.5rem auto;
+    padding: 3rem 0;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 2.4rem 0 #c3c9d0;
+    text-align: center;
+}
+
+.header {
+    margin-bottom: 1.5rem;
+    font-size: 1.75rem;
+}
+
+div.field {
+    width: 30rem;
+    margin: 0 auto;
+}
+
+div.new-city {
+    display: flex;
+    align-content: space-between;
+    margin: 0 1rem;
+}
+
+div.city-name {
+    width: 12.5rem;
+    margin: 0 auto;
+}
+
+div.city-date {
+    width: 15rem;
+    margin: 0 auto;
+    font-size: 0.9rem;
+}
+
+div.city-cost {
+    width: 7.5rem;
+    margin: 0 auto;
+    font-size: 1rem;
+}
+
+input {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #262626;
+    line-height: 4.7rem;
+    width: 100%;
+    height: 3rem;
+    box-sizing: border-box;
+    background: white;
+    border: 0.1rem solid #b8bfc7;
+    box-shadow: 0 1px 0 0 #fff;
+    border-radius: .3rem;
+    padding: 0 1.1rem;
+    text-align: left;
+}
+
+    input:focus {
+        outline: 0;
+        border-color: #68b2dd;
+        background-color: #fff;
+    }
+
+    input.submit-btn {
+        color: #1d4965;
+        font-size: 1.4rem;
+        font-weight: 700;
+        line-height: 3rem;
+        padding: 0 1.5rem;
+        background: linear-gradient(0deg,#79b6db,#b3dbf2);
+        border: none;
+        border-radius: .3rem;
+        cursor: pointer;
+        width: fit-content;
+    }
+
+.validation-error {
+    margin: 0.25rem 0 1rem 0;
+    color: #777a7e;
+    text-align: center;
+    width: 100%;
+    display: inline-block;
+    justify-content: center;
+    line-height: 1rem;
+}
+
+.hint {
+    margin-top: 1.5rem;
+    color: #777a7e;
+}
+
+input[type=submit]:hover {
+    opacity: 0.8;
+}
+
+.link {
+    color: #245c78;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+    .link:hover {
+        text-decoration: underline;
+    }
+
+.link-btn {
+    line-height: 2.5rem;
+    height: fit-content;
+    padding: 0 1rem;
+    margin: 0.25rem 0.25rem 0 0.25rem;
+    display: inline-block;
+    color: #1d4965;
+    font-size: 1rem;
+    font-weight: 500;
+    background: linear-gradient(0deg,#79b6db,#b3dbf2);
+    border: none;
+    border-radius: .3rem;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+    .link-btn:hover {
+        opacity: 0.8;
+    }
